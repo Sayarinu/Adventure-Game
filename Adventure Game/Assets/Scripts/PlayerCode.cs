@@ -37,6 +37,7 @@ public class PlayerCode : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other) {
+        print("hi");
         if (other.CompareTag("Key")) {
             ChangeKeyCount(1);
             Destroy(other.gameObject);
