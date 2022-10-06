@@ -36,12 +36,18 @@ public class PlayerCode : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-        for (int i = 0; i < PublicVars.hasKey.Length; i++) {
-            if (other.gameObject.CompareTag("Key" + i)) {
-                Destroy(other.gameObject);
-                PublicVars.hasKey[i] = true;
-            }
+    public void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Key")) {
+            ChangeKeyCount(1);
+            Destroy(other.gameObject);
         }
+    }
+
+    public void TakeDamage(){
+        print("ow");
+    }
+
+    void ChangeKeyCount(int value) {
+        PublicVars.keys += value;
     }
 }
