@@ -36,7 +36,7 @@ public class BotCode : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         pool = gameObject.GetComponent<BulletPool>();
-        bullet=pool.GetPooledObject();
+        
         StartCoroutine(LookForPlayer());
 
 
@@ -69,8 +69,6 @@ public class BotCode : MonoBehaviour
                     break;
                 case 3:
                     _agent.speed=1;
-                    
-                   
                     if(!sight){
                         _agent.SetDestination(player.transform.position);
                         yield return new WaitForSeconds(.5f);

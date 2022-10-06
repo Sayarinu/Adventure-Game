@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         print("position "+ player.transform.position);
         transform.LookAt(player.transform);
+        Rigidbody.freezeRotation = true;
         Rigidbody.AddForce(gameObject.transform.forward*moveSpeed, ForceMode.VelocityChange);
         CancelInvoke("Disable");
         Invoke("Disable",destroyTime);
