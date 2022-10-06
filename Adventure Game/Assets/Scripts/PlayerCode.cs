@@ -36,14 +36,15 @@ public class PlayerCode : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Key")) {
+    public void OnTriggerEnter(Collider other) {
+        print(PublicVars.keys);
+        if (other.CompareTag("Key")) {
             PublicVars.keys++;
+            Destroy(other.gameObject);
         }
-        if (other.gameObject.CompareTag("Door")) {
-            if (PublicVars.keys >= 1) {
-                Destroy(other.gameObject);
-            }
+        if (other.CompareTag("Door")) {
+            PublicVars.keys--;
+            Destroy(other.gameObject);
         }
     }
 
