@@ -44,4 +44,8 @@ public class PlayerCode : MonoBehaviour
             }
         }
     }
+
+    public void TakeDamage(){
+        print("ow");
+    }
 }
