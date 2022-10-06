@@ -37,10 +37,12 @@ public class PlayerCode : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        for (int i = 0; i < PublicVars.hasKey.Length; i++) {
-            if (other.gameObject.CompareTag("Key" + i)) {
+        if (other.gameObject.CompareTag("Key")) {
+            PublicVars.keys++;
+        }
+        if (other.gameObject.CompareTag("Door")) {
+            if (PublicVars.keys >= 1) {
                 Destroy(other.gameObject);
-                PublicVars.hasKey[i] = true;
             }
         }
     }
