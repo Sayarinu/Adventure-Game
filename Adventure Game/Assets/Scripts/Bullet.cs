@@ -13,12 +13,14 @@ public class Bullet : MonoBehaviour
 
     private void Awake(){
         Rigidbody = GetComponent<Rigidbody>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        
         playerCode = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCode>();
     }
     // Start is called before the first frame update
     private void OnEnable() {
-        transform.LookAt(player.transform.position, Vector3.up);
+        player = GameObject.FindGameObjectWithTag("Player");
+        print("position "+ player.transform.position);
+        transform.LookAt(player.transform);
         Rigidbody.AddForce(gameObject.transform.forward*moveSpeed, ForceMode.VelocityChange);
         CancelInvoke("Disable");
         Invoke("Disable",destroyTime);

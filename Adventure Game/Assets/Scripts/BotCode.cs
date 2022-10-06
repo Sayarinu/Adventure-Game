@@ -20,6 +20,8 @@ public class BotCode : MonoBehaviour
     private RaycastHit hit;
     public int enemyType;
     public GameObject bullet;
+
+    public Vector3 dir;
     /*
     0 - default charger
     1 - faster charger
@@ -39,6 +41,10 @@ public class BotCode : MonoBehaviour
 
 
     }
+
+    private void Update() {
+        gameObject.transform.rotation =  Quaternion.LookRotation(dir) ;
+    }
     IEnumerator LookForPlayer() {
         while (true) {
             bool sight = HasLineOfSight();
@@ -47,35 +53,35 @@ public class BotCode : MonoBehaviour
                     _agent.speed=1;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
-                    gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
+                    dir = _agent.nextPosition-transform.position;
                     break;
                 case 1:
                     _agent.speed=5;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
-                    gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
+                    dir = _agent.nextPosition-transform.position;
                     break;
                 case 2:
                     _agent.speed=10;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
-                    gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
+                    dir = _agent.nextPosition-transform.position;
                     break;
                 case 3:
                     _agent.speed=1;
-                    yield return new WaitForSeconds(.5f);
+                    
                    
                     if(!sight){
                         _agent.SetDestination(player.transform.position);
-                        gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
+                        yield return new WaitForSeconds(.5f);
+                        dir = _agent.nextPosition-transform.position;
                     }else{
                         _agent.SetDestination(gameObject.transform.position);
-                        gameObject.transform.LookAt(player.transform);
-                        
+                        yield return new WaitForSeconds(1f);
+                        dir = ((gameObject.transform.position + bulletSpawnOffset) - (player.transform.position + bulletSpawnOffset)).normalized;
                         bullet = pool.GetPooledObject();
                         if(bullet != null){
                             bullet.transform.position = transform.position + bulletSpawnOffset;
-                            
                             bullet.SetActive(true);
                         }
                     }

@@ -805,22 +805,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6089128071038261624, guid: d9e27548da4df5b44abe24bb03cba187, type: 3}
   m_PrefabInstance: {fileID: 779130223623095786}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6796190735760301216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6796190735760301202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 757d31db040b87141a382e27fe3e4e4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SharedInstance: {fileID: 0}
-  pooledObjects: []
-  objectToPool: {fileID: 8102825827653195270, guid: c7528ff4fa7a5b542bd0a1f5279ddc36, type: 3}
-  amountToPool: 10
 --- !u!114 &6796190735760301217
 MonoBehaviour:
   m_ObjectHideFlags: 0
