@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1935468050338877550}
   - component: {fileID: 7459983332573325912}
   - component: {fileID: 3799813485980145313}
-  - component: {fileID: 3005816562523052190}
   m_Layer: 0
   m_Name: rust_key
   m_TagString: Key
@@ -84,15 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3005816562523052190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3208656641067573885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8829f94e6e8008b43ae5a22a6f0635fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Enemy
   - Key
-  - Door
   layers:
   - Default
   - TransparentFX
