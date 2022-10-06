@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 
 public class BotCode : MonoBehaviour
@@ -13,11 +14,12 @@ public class BotCode : MonoBehaviour
     public Bullet bulletPrefab;
     public Vector3 bulletSpawnOffset = new Vector3(0, 0, 0);
     private float SpherecastRadius = 0.1f;
-
+    public BulletPool pool;
     public LayerMask mask;
     public float range = 10f;
     private RaycastHit hit;
     public int enemyType;
+    public GameObject bullet;
     /*
     0 - default charger
     1 - faster charger
@@ -31,7 +33,10 @@ public class BotCode : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        pool = gameObject.GetComponent<BulletPool>();
+        bullet=pool.GetPooledObject();
         StartCoroutine(LookForPlayer());
+
 
     }
     IEnumerator LookForPlayer() {
@@ -42,26 +47,37 @@ public class BotCode : MonoBehaviour
                     _agent.speed=1;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
+                    gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
                     break;
                 case 1:
                     _agent.speed=5;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
+                    gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
                     break;
                 case 2:
                     _agent.speed=10;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
+                    gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
                     break;
                 case 3:
                     _agent.speed=1;
                     yield return new WaitForSeconds(.5f);
-                    print(HasLineOfSight());
+                   
                     if(!sight){
                         _agent.SetDestination(player.transform.position);
+                        gameObject.transform.rotation =  Quaternion.LookRotation(_agent.nextPosition);
                     }else{
                         _agent.SetDestination(gameObject.transform.position);
+                        gameObject.transform.LookAt(player.transform);
                         
+                        bullet = pool.GetPooledObject();
+                        if(bullet != null){
+                            bullet.transform.position = transform.position + bulletSpawnOffset;
+                            
+                            bullet.SetActive(true);
+                        }
                     }
                     break;
                 default:

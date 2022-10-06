@@ -9,13 +9,17 @@ public class Bullet : MonoBehaviour
     public Rigidbody Rigidbody;
 
     public PlayerCode playerCode;
+    public GameObject player;
 
     private void Awake(){
         Rigidbody = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player");
         playerCode = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCode>();
     }
     // Start is called before the first frame update
     private void OnEnable() {
+        transform.LookAt(player.transform.position, Vector3.up);
+        Rigidbody.AddForce(gameObject.transform.forward*moveSpeed, ForceMode.VelocityChange);
         CancelInvoke("Disable");
         Invoke("Disable",destroyTime);
     }
@@ -27,6 +31,7 @@ public class Bullet : MonoBehaviour
                 Disable();
                 break;
             default:
+                Disable();
                 break;
         }
 
@@ -40,6 +45,6 @@ public class Bullet : MonoBehaviour
     private void Disable(){
         CancelInvoke("Disable");
         Rigidbody.velocity = Vector3.zero;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
