@@ -20,13 +20,12 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable() {
         player = GameObject.FindGameObjectWithTag("Player");
-        print("position "+ player.transform.position);
         transform.LookAt(player.transform);
         Rigidbody.freezeRotation = true;
         Rigidbody.AddForce(gameObject.transform.forward*moveSpeed, ForceMode.VelocityChange);
         CancelInvoke("Disable");
         Invoke("Disable",destroyTime);
-        print(transform.rotation);
+        
     }
 
     private void OnTriggerEnter(Collider other) {

@@ -47,7 +47,7 @@ public class BotCode : MonoBehaviour
         distance = Vector3.Distance (transform.position, player.transform.position);
         _agent.updateRotation = false;
         gameObject.transform.rotation =  Quaternion.LookRotation(dir);
-        print(distance);
+        
     }
     IEnumerator LookForPlayer() {
         while (true) {
