@@ -7,13 +7,12 @@ public class SceneCode : MonoBehaviour
 {
     [SerializeField]
     List<int> SceneIndexList;
-    int currScenePos = 0;
 
     public void LoadNextScene() {
         Scene currScene = SceneManager.GetActiveScene();
         AsyncOperation ao = SceneManager.UnloadSceneAsync(currScene);
-        currScenePos++;
-        SceneManager.LoadSceneAsync(SceneIndexList[currScenePos]);
+        PublicVars.currScenePos++;
+        SceneManager.LoadSceneAsync(SceneIndexList[PublicVars.currScenePos]);
     }
 
     public void ReloadScene() {
