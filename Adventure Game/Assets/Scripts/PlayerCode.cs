@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerCode : MonoBehaviour
 {
@@ -25,6 +26,18 @@ public class PlayerCode : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         mainCam = Camera.main;
         SC = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneCode>();
+        PublicVars.killed = 0;
+        switch(SceneManager.GetActiveScene().name) {
+            case "Level 1":
+                PublicVars.enemies = PublicVars.enemies1;
+                break;
+            case "Level 2":
+                PublicVars.enemies = PublicVars.enemies2;
+                break;
+            case "Level 3":
+                PublicVars.enemies = PublicVars.enemies3;
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -44,6 +57,9 @@ public class PlayerCode : MonoBehaviour
                 newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletForce);
             }
         }
+        if (PublicVars.killed == PublicVars.enemies) {
+            SC.LoadNextScene();
+        }
     }
 
     public void OnTriggerEnter(Collider other) {
@@ -52,8 +68,10 @@ public class PlayerCode : MonoBehaviour
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Door")) {
-            ChangeKeyCount(-1);
-            Destroy(other.gameObject);
+            if (PublicVars.keys > 0) {
+                ChangeKeyCount(-1);
+                Destroy(other.gameObject);
+            }
         }
         
     }
