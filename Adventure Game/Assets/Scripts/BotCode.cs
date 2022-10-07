@@ -21,6 +21,7 @@ public class BotCode : MonoBehaviour
     public int enemyType;
     public GameObject bullet;
 
+    public float distance = 0;
     public Vector3 dir;
     /*
     0 - default charger
@@ -43,12 +44,15 @@ public class BotCode : MonoBehaviour
     }
 
     private void Update() {
+        distance = Vector3.Distance (transform.position, player.transform.position);
         _agent.updateRotation = false;
-        gameObject.transform.rotation =  Quaternion.LookRotation(dir) ;
+        gameObject.transform.rotation =  Quaternion.LookRotation(dir);
+        
     }
     IEnumerator LookForPlayer() {
         while (true) {
             bool sight = HasLineOfSight();
+
             switch(enemyType){
                 case 0:
                     _agent.speed=1;
@@ -89,6 +93,7 @@ public class BotCode : MonoBehaviour
                 default:
                     break;
             }
+            
         }
     }
 

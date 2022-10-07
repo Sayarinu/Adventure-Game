@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2151718446004860808}
   - component: {fileID: 2151718446004860810}
   - component: {fileID: 4867436760580875131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Charger Fastest
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -134,4 +134,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edc78bbf4b9a9e42bc9a3919a2a7f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  bulletSpawnOffset: {x: 0, y: 0, z: 0}
+  pool: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  range: 10
   enemyType: 2
+  bullet: {fileID: 0}
+  distance: 0
+  dir: {x: 0, y: 0, z: 0}
