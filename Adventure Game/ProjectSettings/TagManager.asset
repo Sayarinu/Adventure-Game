@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Door
   - SceneManager
+  - Door
   layers:
   - Default
   - TransparentFX

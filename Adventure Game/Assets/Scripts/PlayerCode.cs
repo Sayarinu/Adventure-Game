@@ -16,7 +16,11 @@ public class PlayerCode : MonoBehaviour
     SceneCode SC;
 
     Camera mainCam;
+    bool isInvincible;
 
+    [SerializeField]
+    private float invincibilityDurationSeconds=1.5f;
+    private float invincibilityDeltaTime=0.15f;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -42,6 +46,7 @@ public class PlayerCode : MonoBehaviour
         if (Input.GetMouseButton(0)) {
             RaycastHit hit;
             if(Physics.Raycast(mainCam.ScreenPointToRay(Input.mousePosition), out hit, 200)) {
+                _agent.speed=2;
                 _agent.SetDestination(hit.point);
             }
         } else if (Input.GetMouseButtonDown(1)) {
@@ -52,6 +57,9 @@ public class PlayerCode : MonoBehaviour
                 newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletForce);
             }
         }
+        if (PublicVars.killed == PublicVars.enemies) {
+            SC.LoadNextScene();
+        }
     }
 
     public void OnTriggerEnter(Collider other) {
@@ -60,19 +68,43 @@ public class PlayerCode : MonoBehaviour
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Door")) {
-            ChangeKeyCount(-1);
-            Destroy(other.gameObject);
+            if (PublicVars.keys > 0) {
+                ChangeKeyCount(-1);
+                Destroy(other.gameObject);
+            }
         }
+        
     }
 
     public void TakeDamage(int dmg = 1){
+        if(isInvincible){
+            return;
+        }
         health -= dmg;
+        
         if (health <= 0) {
             SC.ReloadScene();
         }
+        StartCoroutine(BecomeTemporarilyInvincible());
     }
 
     void ChangeKeyCount(int value) {
         PublicVars.keys += value;
+    }
+
+    private IEnumerator BecomeTemporarilyInvincible()
+    {
+   
+        isInvincible = true;
+
+        for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime)
+        {
+            
+            yield return new WaitForSeconds(invincibilityDeltaTime);
+        }
+
+        Debug.Log("Player is no longer invincible!");
+
+        isInvincible = false;
     }
 }
