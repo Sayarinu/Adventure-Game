@@ -6,16 +6,20 @@ using UnityEngine.AI;
 public class PlayerCode : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField]
+    int health = 10;
     int bulletForce = 500;
 
     public GameObject bulletPrefab;
     NavMeshAgent _agent;
+    SceneCode SC;
 
     Camera mainCam;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         mainCam = Camera.main;
+        SC = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneCode>();
     }
 
     // Update is called once per frame
@@ -43,8 +47,11 @@ public class PlayerCode : MonoBehaviour
         }
     }
 
-    public void TakeDamage(){
-        print("ow");
+    public void TakeDamage(int dmg = 1){
+        health -= dmg;
+        if (health <= 0) {
+            SC.ReloadScene();
+        }
     }
 
     void ChangeKeyCount(int value) {
