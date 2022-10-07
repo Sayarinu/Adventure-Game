@@ -41,6 +41,10 @@ public class PlayerCode : MonoBehaviour
             ChangeKeyCount(1);
             Destroy(other.gameObject);
         }
+        if (other.CompareTag("Door")) {
+            ChangeKeyCount(-1);
+            Destroy(other.gameObject);
+        }
     }
 
     public void TakeDamage(){
