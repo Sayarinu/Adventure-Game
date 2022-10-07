@@ -8,6 +8,7 @@ TagManager:
   - Key
   - Bullet
   - Door
+  - SceneManager
   layers:
   - Default
   - TransparentFX
