@@ -46,8 +46,10 @@ public class PlayerCode : MonoBehaviour
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Door")) {
-            ChangeKeyCount(-1);
-            Destroy(other.gameObject);
+            if (PublicVars.keys > 0) {
+                ChangeKeyCount(-1);
+                Destroy(other.gameObject);
+            }
         }
     }
 
