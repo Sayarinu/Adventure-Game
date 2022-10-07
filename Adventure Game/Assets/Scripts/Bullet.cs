@@ -13,7 +13,8 @@ public class Bullet : MonoBehaviour
 
     private void Awake(){
         Rigidbody = GetComponent<Rigidbody>();
-        
+        Physics.IgnoreLayerCollision(3,6,true);
+        Physics.IgnoreLayerCollision(6,6,true);
         playerCode = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCode>();
     }
     // Start is called before the first frame update
