@@ -104,6 +104,7 @@ public class BotCode : MonoBehaviour
         if (other.CompareTag("Bullet")) {
             Destroy(other.gameObject);
             Destroy(gameObject);
+            PublicVars.killed += 1;
         }
         
     }
