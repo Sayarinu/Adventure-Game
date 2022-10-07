@@ -52,6 +52,9 @@ public class PlayerCode : MonoBehaviour
                 newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletForce);
             }
         }
+        if (PublicVars.killed == PublicVars.enemies) {
+            SC.LoadNextScene();
+        }
     }
 
     public void OnTriggerEnter(Collider other) {
