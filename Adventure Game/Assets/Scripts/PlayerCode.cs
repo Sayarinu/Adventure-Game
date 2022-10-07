@@ -60,9 +60,12 @@ public class PlayerCode : MonoBehaviour
         if (PublicVars.killed == PublicVars.enemies) {
             SC.LoadNextScene();
         }
+
         if(Input.GetKey(KeyCode.Backspace)){
             Application.Quit();
         }
+        Debug.Log(PublicVars.killed);
+
     }
 
     public void OnTriggerEnter(Collider other) {
