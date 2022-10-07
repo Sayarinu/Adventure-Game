@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerCode : MonoBehaviour
 {
@@ -15,11 +16,24 @@ public class PlayerCode : MonoBehaviour
     SceneCode SC;
 
     Camera mainCam;
+
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         mainCam = Camera.main;
         SC = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneCode>();
+        PublicVars.killed = 0;
+        switch(SceneManager.GetActiveScene().name) {
+            case "Level 1":
+                PublicVars.enemies = PublicVars.enemies1;
+                break;
+            case "Level 2":
+                PublicVars.enemies = PublicVars.enemies2;
+                break;
+            case "Level 3":
+                PublicVars.enemies = PublicVars.enemies3;
+                break;
+        }
     }
 
     // Update is called once per frame
