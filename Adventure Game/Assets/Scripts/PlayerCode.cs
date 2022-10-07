@@ -55,6 +55,10 @@ public class PlayerCode : MonoBehaviour
             ChangeKeyCount(-1);
             Destroy(other.gameObject);
         }
+        if (other.CompareTag("Enemy")) {
+            TakeDamage();
+        }
+        print(other.tag);
     }
 
     public void TakeDamage(int dmg = 1){
@@ -62,7 +66,7 @@ public class PlayerCode : MonoBehaviour
             return;
         }
         health -= dmg;
-        print("ouch");
+        
         if (health <= 0) {
             SC.ReloadScene();
         }

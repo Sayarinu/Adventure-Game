@@ -105,9 +105,6 @@ public class BotCode : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
-        else if(other.CompareTag("Player")){
-            playerCode.TakeDamage();
-        }
     }
 
     private bool HasLineOfSight(){
