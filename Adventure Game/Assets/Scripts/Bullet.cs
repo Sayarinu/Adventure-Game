@@ -21,9 +21,11 @@ public class Bullet : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         print("position "+ player.transform.position);
         transform.LookAt(player.transform);
+        Rigidbody.freezeRotation = true;
         Rigidbody.AddForce(gameObject.transform.forward*moveSpeed, ForceMode.VelocityChange);
         CancelInvoke("Disable");
         Invoke("Disable",destroyTime);
+        print(transform.rotation);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -38,15 +40,18 @@ public class Bullet : MonoBehaviour
         }
 
     }
+
+ 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     private void Disable(){
         CancelInvoke("Disable");
         Rigidbody.velocity = Vector3.zero;
         gameObject.SetActive(false);
+        Rigidbody.freezeRotation = false;
     }
 }

@@ -36,13 +36,14 @@ public class BotCode : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         pool = gameObject.GetComponent<BulletPool>();
-        bullet=pool.GetPooledObject();
+        
         StartCoroutine(LookForPlayer());
 
 
     }
 
     private void Update() {
+        _agent.updateRotation = false;
         gameObject.transform.rotation =  Quaternion.LookRotation(dir) ;
     }
     IEnumerator LookForPlayer() {
@@ -53,35 +54,34 @@ public class BotCode : MonoBehaviour
                     _agent.speed=1;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
-                    dir = _agent.nextPosition-transform.position;
+                    dir = _agent.velocity.normalized;
                     break;
                 case 1:
                     _agent.speed=5;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
-                    dir = _agent.nextPosition-transform.position;
+                    dir = _agent.velocity.normalized;
                     break;
                 case 2:
                     _agent.speed=10;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
-                    dir = _agent.nextPosition-transform.position;
+                    dir = _agent.velocity.normalized;
                     break;
                 case 3:
                     _agent.speed=1;
-                    
-                   
                     if(!sight){
                         _agent.SetDestination(player.transform.position);
                         yield return new WaitForSeconds(.5f);
-                        dir = _agent.nextPosition-transform.position;
+                        dir = _agent.velocity.normalized;
                     }else{
                         _agent.SetDestination(gameObject.transform.position);
                         yield return new WaitForSeconds(1f);
-                        dir = ((gameObject.transform.position + bulletSpawnOffset) - (player.transform.position + bulletSpawnOffset)).normalized;
+                        dir = ((gameObject.transform.position) - (player.transform.position)).normalized;
                         bullet = pool.GetPooledObject();
                         if(bullet != null){
                             bullet.transform.position = transform.position + bulletSpawnOffset;
+                            Physics.IgnoreCollision(bullet.GetComponent<Collider>(),GetComponent<Collider>());
                             bullet.SetActive(true);
                         }
                     }
