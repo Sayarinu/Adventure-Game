@@ -28,6 +28,7 @@ public class PlayerCode : MonoBehaviour
         if (Input.GetMouseButton(0)) {
             RaycastHit hit;
             if(Physics.Raycast(mainCam.ScreenPointToRay(Input.mousePosition), out hit, 200)) {
+                _agent.speed=2;
                 _agent.SetDestination(hit.point);
             }
         } else if (Input.GetMouseButtonDown(1)) {

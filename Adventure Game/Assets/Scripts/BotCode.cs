@@ -61,13 +61,13 @@ public class BotCode : MonoBehaviour
                     dir = _agent.velocity.normalized;
                     break;
                 case 1:
-                    _agent.speed=5;
+                    _agent.speed=2;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
                     dir = _agent.velocity.normalized;
                     break;
                 case 2:
-                    _agent.speed=10;
+                    _agent.speed=3;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
                     dir = _agent.velocity.normalized;
