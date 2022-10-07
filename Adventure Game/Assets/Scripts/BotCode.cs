@@ -23,6 +23,8 @@ public class BotCode : MonoBehaviour
 
     public float distance = 0;
     public Vector3 dir;
+
+    private PlayerCode playerCode;
     /*
     0 - default charger
     1 - faster charger
@@ -37,8 +39,9 @@ public class BotCode : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         pool = gameObject.GetComponent<BulletPool>();
-        
+        playerCode = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCode>();
         StartCoroutine(LookForPlayer());
+        
 
 
     }
@@ -61,13 +64,13 @@ public class BotCode : MonoBehaviour
                     dir = _agent.velocity.normalized;
                     break;
                 case 1:
-                    _agent.speed=5;
+                    _agent.speed=2;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
                     dir = _agent.velocity.normalized;
                     break;
                 case 2:
-                    _agent.speed=10;
+                    _agent.speed=3;
                     yield return new WaitForSeconds(.5f);
                     _agent.SetDestination(player.transform.position);
                     dir = _agent.velocity.normalized;
@@ -102,6 +105,13 @@ public class BotCode : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
             PublicVars.killed += 1;
+        }
+        
+    }
+
+    private void OnTriggerStay(Collider other) {
+        if (other.CompareTag("Player")) {
+            playerCode.TakeDamage();
         }
     }
 
