@@ -23,6 +23,8 @@ public class BotCode : MonoBehaviour
 
     public float distance = 0;
     public Vector3 dir;
+
+    private PlayerCode playerCode;
     /*
     0 - default charger
     1 - faster charger
@@ -37,8 +39,9 @@ public class BotCode : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         pool = gameObject.GetComponent<BulletPool>();
-        
+        playerCode = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCode>();
         StartCoroutine(LookForPlayer());
+        
 
 
     }
@@ -101,6 +104,9 @@ public class BotCode : MonoBehaviour
         if (other.CompareTag("Bullet")) {
             Destroy(other.gameObject);
             Destroy(gameObject);
+        }
+        else if(other.CompareTag("Player")){
+            playerCode.TakeDamage();
         }
     }
 

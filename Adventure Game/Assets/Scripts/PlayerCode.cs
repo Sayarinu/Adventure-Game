@@ -15,6 +15,11 @@ public class PlayerCode : MonoBehaviour
     SceneCode SC;
 
     Camera mainCam;
+    bool isInvincible;
+
+    [SerializeField]
+    private float invincibilityDurationSeconds=1.5f;
+    private float invincibilityDeltaTime=0.15f;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -53,13 +58,34 @@ public class PlayerCode : MonoBehaviour
     }
 
     public void TakeDamage(int dmg = 1){
+        if(isInvincible){
+            return;
+        }
         health -= dmg;
+        print("ouch");
         if (health <= 0) {
             SC.ReloadScene();
         }
+        StartCoroutine(BecomeTemporarilyInvincible());
     }
 
     void ChangeKeyCount(int value) {
         PublicVars.keys += value;
+    }
+
+    private IEnumerator BecomeTemporarilyInvincible()
+    {
+   
+        isInvincible = true;
+
+        for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime)
+        {
+            
+            yield return new WaitForSeconds(invincibilityDeltaTime);
+        }
+
+        Debug.Log("Player is no longer invincible!");
+
+        isInvincible = false;
     }
 }
