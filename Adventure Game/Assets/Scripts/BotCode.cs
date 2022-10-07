@@ -105,6 +105,10 @@ public class BotCode : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
+        
+    }
+
+    private void OnTriggerStay(Collider other) {
         if (other.CompareTag("Player")) {
             playerCode.TakeDamage();
         }
