@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Key
+  - Bullet
+  - Door
+  - SceneManager
   layers:
   - Default
   - TransparentFX
